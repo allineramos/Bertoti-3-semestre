@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class MovieController {
 
 }
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/movies")
 class RestApiDemoController {
@@ -70,8 +72,14 @@ class RestApiDemoController {
 			movie.getGenre() == null || movie.getGenre().isBlank()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-	
-		movie.setId(currentId++);
+		
+		// Calcula o próximo ID baseado nos filmes já existentes
+		int nextId = movies.stream()
+						.mapToInt(Movie::getId)
+						.max()
+						.orElse(0) + 1;
+		movie.setId(nextId);
+		
 		movies.add(movie);
 	
 		URI location = ServletUriComponentsBuilder
@@ -82,6 +90,7 @@ class RestApiDemoController {
 	
 		return ResponseEntity.created(location).body(movie);
 	}
+	
 	
 
 	@PutMapping("/{id}")

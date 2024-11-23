@@ -1,19 +1,13 @@
 package movies.labbd;
 
-class Movie {
+public class Movie {
+    private static int counter = 1; 
     private int id;
     private String name;
     private String genre;
 
-    public Movie() {}
-
-    public Movie(int id, String name, String genre) {
-        this.id = id;
-        this.name = name;
-        this.genre = genre;
-    }
-
     public Movie(String name, String genre) {
+        this.id = counter++;
         this.name = name;
         this.genre = genre;
     }
