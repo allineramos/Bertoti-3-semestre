@@ -73,7 +73,6 @@ class RestApiDemoController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 		
-		// Calcula o próximo ID baseado nos filmes já existentes
 		int nextId = movies.stream()
 						.mapToInt(Movie::getId)
 						.max()
@@ -111,9 +110,9 @@ class RestApiDemoController {
 		boolean removed = movies.removeIf(m -> m.getId() == id);
 	
 		if (removed) {
-			return ResponseEntity.noContent().build(); // Retorna 204 No Content
+			return ResponseEntity.noContent().build();
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Retorna 404
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
 }

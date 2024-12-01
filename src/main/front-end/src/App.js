@@ -40,7 +40,7 @@ const App = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, genre }), // Apenas nome e gênero
+        body: JSON.stringify({ name, genre }),
       });
       setLoading(true);
       setGenre("");
